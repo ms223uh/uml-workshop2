@@ -1,0 +1,5 @@
+C:\Users\Filip\Desktop\Projekt\OOAD\Workshop-2\Workshop-2\bin\Release\Workshop-2.exe.config
+C:\Users\Filip\Desktop\Projekt\OOAD\Workshop-2\Workshop-2\bin\Release\Workshop-2.exe
+C:\Users\Filip\Desktop\Projekt\OOAD\Workshop-2\Workshop-2\bin\Release\Workshop-2.pdb
+C:\Users\Filip\Desktop\Projekt\OOAD\Workshop-2\Workshop-2\obj\Release\Workshop-2.exe
+C:\Users\Filip\Desktop\Projekt\OOAD\Workshop-2\Workshop-2\obj\Release\Workshop-2.pdb
