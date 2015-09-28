@@ -19,13 +19,13 @@ namespace Workshop_2.Model
 
         public MemberModel()
         {
-            MemberCompactModel mcm = new MemberCompactModel();
-            mcm.getList();
+            getList();
         }
 
         public void saveMember(Member member)
         {
-            
+           
+
             members.Add(member);
             IFormatter formatter = new BinaryFormatter();
 
@@ -34,6 +34,19 @@ namespace Workshop_2.Model
             formatter.Serialize(stream, members);
             
             stream.Close();
+
+        }
+
+        public List<Member> getList()
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(file, FileMode.OpenOrCreate, FileAccess.Read);
+
+            members = (List<Member>)formatter.Deserialize(stream);
+
+            stream.Close();
+
+            return members;
 
         }
     

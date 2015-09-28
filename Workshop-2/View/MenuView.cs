@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Workshop_2.Controller;
 using System.Threading;
+using Workshop_2.Model;
 namespace Workshop_2.View
 {
     class MenuView
@@ -19,7 +20,6 @@ namespace Workshop_2.View
 
         public void menu()
         {
-            
             while(true)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -34,6 +34,7 @@ namespace Workshop_2.View
                 Console.WriteLine("  4. Read Verbose List of Members");
                 Console.WriteLine("  5. Edit Member");
                 Console.WriteLine("  6. Delete Member");
+                Console.WriteLine("  Q. Quit");
                 Console.WriteLine("[---------------------------------]");
 
 
@@ -69,7 +70,11 @@ namespace Workshop_2.View
                         throw new NotImplementedException();
                         //Console.WriteLine("TODO:  'Delete a Member'");
                         //break;
-
+                    case 'q':
+                        Console.Clear();
+                        Console.WriteLine("Have a nice day!");
+                        Environment.Exit(0);
+                        break;
                         
                 }
                 Console.Clear();
@@ -107,13 +112,14 @@ namespace Workshop_2.View
 
         public void printCompactList()
         {
-            
-            //Console.Clear();
-            //for (int i = 0; i < _mc.wantsToSeeCompactList().Count; i++)
-            //{
-               
-            //    Console.WriteLine( _mc.wantsToSeeCompactList().ElementAt(i).Name);
-            //}
+            List<Member> members = _mc.wantsToSeeCompactList();
+            Console.Clear();
+            foreach(Member m in members)
+            {
+                Console.WriteLine("Name: {0} SSN: {1} ID: {2}", m.Name, m.SSN, m.UniqueID);
+            }
+            Console.WriteLine("Press any key to go back");
+            Console.ReadLine();
 
         }
 

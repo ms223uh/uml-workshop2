@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Controller\MemberController.cs" />
     <Compile Include="Model\Member.cs" />
-    <Compile Include="Model\MemberCompactModel.cs" />
     <Compile Include="Model\MemberModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

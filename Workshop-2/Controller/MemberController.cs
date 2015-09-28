@@ -11,12 +11,12 @@ namespace Workshop_2.Controller
     {
 
         MemberModel _memberModel;
-        MemberCompactModel _memberCompactModel;
+      
 
         public MemberController()
         {
              _memberModel = new Model.MemberModel();
-             _memberCompactModel = new MemberCompactModel();
+        
         }
 
         public void createMember(string c_fullName, string c_SSN, int uniqueID)
@@ -29,7 +29,7 @@ namespace Workshop_2.Controller
 
         public List<Member> wantsToSeeCompactList()
         {
-            return _memberCompactModel.getList();
+            return _memberModel.getList();
         }
 
         public void updateMember()
