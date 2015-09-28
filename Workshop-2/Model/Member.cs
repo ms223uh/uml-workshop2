@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Workshop_2.Model
 {
+
+    [Serializable]
     class Member
     {
         private string _name;
@@ -14,13 +16,12 @@ namespace Workshop_2.Model
 
         //private int []_boats;
 
-        public Member(string name, string ssn/*, int []boats*/)
+        public Member(string name, string ssn, int uniqueID)
         {
             Name = name;
             SSN = ssn;
-            Random rnd = new Random();
-            _uniqueID = rnd.Next(1, 1000000000);
-            //Boats = boats;
+            UniqueID = uniqueID;
+
         }
 
         public string Name
@@ -54,6 +55,18 @@ namespace Workshop_2.Model
             get
             {
                 return _uniqueID;
+            }
+
+            set
+            {
+                if (UniqueID == 0)
+                {
+                    Random rnd = new Random();
+                    _uniqueID = rnd.Next(1, 10000);
+
+                }
+
+                
             }
         }
 

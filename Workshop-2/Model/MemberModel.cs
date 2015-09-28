@@ -4,44 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Workshop_2.Model
 {
     class MemberModel
     {
         
-        private string _dir;
-        private string _fileName;
+        public List<Member> members = new List<Member>();
+
+        public string file = "members.bin";
+
+
         public MemberModel()
         {
-            string dir = Environment.CurrentDirectory + "../../../Model/Data/";
-            string fileName = "Members.txt";
-            _fileName = fileName;
-            _dir = dir;
+            MemberCompactModel mcm = new MemberCompactModel();
+            mcm.getList();
         }
 
-        public bool saveMember(Member member)
+        public void saveMember(Member member)
         {
-            //TODO: add member to list 
-            Console.WriteLine(member.UniqueID);
-           
-            List<Member> members = new List<Member>();
+            
             members.Add(member);
+            IFormatter formatter = new BinaryFormatter();
 
-            string memberPath = Path.Combine(_dir, _fileName);
-            
-            
+            Stream stream = new FileStream(file, FileMode.Create, FileAccess.Write);
 
-            using (StreamWriter memberFile = new StreamWriter(memberPath))
-            {
-                
-                memberFile.WriteLine("Name: {0} SSN: {1} MemberID: {2}", member.Name, member.SSN, member.UniqueID);
+            formatter.Serialize(stream, members);
+            
+            stream.Close();
 
-                memberFile.Close();
-            }
-            
-            return true;
-            
         }
+    
     }
 }
