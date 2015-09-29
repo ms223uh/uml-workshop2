@@ -13,14 +13,15 @@ namespace Workshop_2.Model
         private string _name;
         private string _SSN;
         private int _uniqueID;
+        private List<Boat> _boats;
+       
 
-        //private int []_boats;
-
-        public Member(string name, string ssn, int uniqueID)
+        public Member(string name, string ssn, int uniqueID, List<Boat> boats)
         {
             Name = name;
             SSN = ssn;
             UniqueID = uniqueID;
+            Boats = boats;
 
         }
 
@@ -70,18 +71,17 @@ namespace Workshop_2.Model
             }
         }
 
-        // Unsecure on how to work with arrays in this matter... May have to look at this later on.
-        //public int []Boats
-        //{
-        //    get
-        //    {
-        //        return _boats;
-        //    }
+        public List<Boat> Boats
+        {
+            get
+            {
+                return _boats;
+            }
+            set
+            {
+                _boats = value;
+            }
 
-        //    set
-        //    {
-        //        _boats = value;
-        //    }
-        //}
+        }
     }
 }

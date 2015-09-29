@@ -12,7 +12,7 @@ namespace Workshop_2
     {
         static void Main(string[] args)
         {
-           MemberController mc = new MemberController();
+           MasterController mc = new MasterController();
             MenuView mv = new MenuView(mc);
 
             mv.menu();
