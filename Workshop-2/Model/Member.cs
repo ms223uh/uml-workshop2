@@ -13,15 +13,14 @@ namespace Workshop_2.Model
         private string _name;
         private string _SSN;
         private int _uniqueID;
-        private List<Boat> _boats;
+        private List<Boat> _boats = new List<Boat>();
        
 
-        public Member(string name, string ssn, int uniqueID, List<Boat> boats)
+        public Member(string name, string ssn, int uniqueID)
         {
             Name = name;
             SSN = ssn;
             UniqueID = uniqueID;
-            Boats = boats;
 
         }
 
@@ -67,7 +66,6 @@ namespace Workshop_2.Model
 
                 }
 
-                
             }
         }
 

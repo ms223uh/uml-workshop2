@@ -14,7 +14,7 @@ namespace Workshop_2.Model
         
         public List<Member> members = new List<Member>();
 
-        public string file = "members.bin";
+        private string file = "members.bin";
 
 
         public MemberDAL()
@@ -22,11 +22,9 @@ namespace Workshop_2.Model
             getList();
         }
 
-        public void saveMember(Member member)
+        public void saveMember()
         {
-       
-            
-            members.Add(member);
+
             IFormatter formatter = new BinaryFormatter();
 
             Stream stream = new FileStream(file, FileMode.Create, FileAccess.Write);
@@ -39,7 +37,7 @@ namespace Workshop_2.Model
 
         public List<Member> getList()
         {
-            
+          
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(file, FileMode.OpenOrCreate, FileAccess.Read);
             try
