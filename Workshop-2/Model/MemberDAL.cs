@@ -19,23 +19,31 @@ namespace Workshop_2.Model
 
         public MemberDAL()
         {
-            getList();
+            readFromFile();
         }
 
-        public void saveMember()
+ 
+        public void saveToFile()
         {
-
-            IFormatter formatter = new BinaryFormatter();
-
-            Stream stream = new FileStream(file, FileMode.Create, FileAccess.Write);
-
-            formatter.Serialize(stream, members);
             
-            stream.Close();
+            try
+            {
+                IFormatter formatter = new BinaryFormatter();
+
+                Stream stream = new FileStream(file, FileMode.Create, FileAccess.Write);
+
+                formatter.Serialize(stream, members);
+
+                stream.Close();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Couldn't save to file.");
+            }
 
         }
 
-        public List<Member> getList()
+        public List<Member> readFromFile()
         {
           
             IFormatter formatter = new BinaryFormatter();

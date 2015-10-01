@@ -46,5 +46,27 @@ namespace Workshop_2.Model
                 _boatLength = value;
             }
         }
+
+        internal Member Member
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        internal Member m_addToList
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }

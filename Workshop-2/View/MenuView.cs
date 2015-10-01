@@ -11,14 +11,13 @@ namespace Workshop_2.View
 {
     class MenuView
     {
-
         MasterController _mc;
 
         public MenuView(MasterController mc)
         {
             _mc = mc;
         }
-
+  
         public void menu()
         {
             Console.Clear();
@@ -26,7 +25,7 @@ namespace Workshop_2.View
             {
                 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Welcome to Happy Pirate!");
+                Console.WriteLine("WELCOME TO HAPPY PIRATE'S MEMBER REGISTRY!\n");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Select an option...");
 
@@ -35,7 +34,7 @@ namespace Workshop_2.View
                 Console.WriteLine("  2. Select a Member");
                 Console.WriteLine("  3. Read Compact List of Members");
                 Console.WriteLine("  4. Read Verbose List of Members");
-                Console.WriteLine("  Q. Quit");
+                Console.WriteLine("\n  Q. Quit");
                 Console.WriteLine("[---------------------------------]");
 
 
@@ -81,6 +80,11 @@ namespace Workshop_2.View
                 Console.Clear();
             }
         }
+
+
+        /*
+         *  Member Handling.
+         */
         public void newMember()
         {
             Console.Clear();
@@ -88,6 +92,8 @@ namespace Workshop_2.View
             string v_fullName = credentialsName();
             string v_SSN = credentialsSSN();
             _mc.createMember(v_fullName, v_SSN, 0);
+
+
            
         }
 
@@ -172,15 +178,20 @@ namespace Workshop_2.View
             {
                 Console.Clear();
                 minimalMemberList();
-                Console.WriteLine("\nSELECT A MEMBER");
+                Console.WriteLine("\n[SELECT MEMBER]");
 
-                Console.Write("Press the number of the Member :");
+                Console.Write("Press the number of the Member (0 to go back) :");
+                
 
                 try
                 {
                     int select = int.Parse(Console.ReadLine());
 
-                    List<Member> members = _mc.wantsToSeeCompactList();
+                    List<Member> members = _mc.wantsToSeeList();
+                    if(select == 0)
+                    {
+                        menu();
+                    }
 
                     foreach (Member m in members)
                     {
@@ -190,7 +201,7 @@ namespace Workshop_2.View
                         }
                     }
                 }
-                catch (Exception)
+                catch (FormatException)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("You need to enter a valid number! Press Enter to try again.");
@@ -205,7 +216,7 @@ namespace Workshop_2.View
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("You have selected '{0}'", m.Name);
+                Console.WriteLine("[YOU HAVE SELECTED: {0}]", m.Name);
                         
                 Console.WriteLine("\nWhat do you want to do with your selected member?");
            
@@ -214,13 +225,9 @@ namespace Workshop_2.View
                 Console.WriteLine("3. Delete Boat");
                 Console.WriteLine("4. Edit Member");
                 Console.WriteLine("5. Delete Member");
+                Console.WriteLine("\nB. Go back to menu");
 
-                Console.WriteLine("\nPress B to go back.");
-                char back = Console.ReadKey().KeyChar;
-                if(back == 'b')
-                {
-                    menu();
-                }
+                bool editOrDelete;
             
                 char choice = Console.ReadKey().KeyChar;
                 switch (choice)
@@ -230,9 +237,13 @@ namespace Workshop_2.View
                         break;
 
                     case '2':
+                        editOrDelete = true;
+                        editBoat(m, editOrDelete);
                         break;
 
                     case '3':
+                        editOrDelete = false;
+                        editBoat(m, editOrDelete);
                         break;
 
                     case '4':
@@ -242,6 +253,10 @@ namespace Workshop_2.View
                     case '5':
                         deleteMember(m);
                         break;
+                    case 'b':
+                        menu();
+                        break;
+
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -256,15 +271,100 @@ namespace Workshop_2.View
            
         }
 
+
+        /*
+         *  Boat Handling.
+         */
         public void addBoat(Member m)
         {
-            //BOATS
             Console.Clear();
+            Console.WriteLine("[ADD BOAT]");
             Console.Write("\nEnter the amount of boats: ");
-            int v_numberOfBoats = int.Parse(Console.ReadLine());
-
-            for (int i = 0; i < v_numberOfBoats; i++)
+            try 
             {
+                int v_numberOfBoats = int.Parse(Console.ReadLine());
+            
+
+                for (int i = 0; i < v_numberOfBoats; i++)
+                {
+                    string v_boatType = credentialBoatType();
+                    float v_boatLength = credentialBoatLength(v_boatType);
+
+                    _mc.addBoat(v_boatType, v_boatLength, m);
+                }
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("Enter a valid  number! Press Enter to go back.");
+                Console.ReadLine();
+            }
+        }
+
+        public void editBoat(Member m, bool editOrDelete)
+        {
+            Console.Clear();
+
+            int pos = 0; 
+             
+            foreach(Boat boat in m.Boats)
+            {
+                Console.WriteLine(pos+". "+" Type: {0,-10}  Length: {1}m ",boat.BoatType, boat.BoatLength);
+                pos++;
+            }
+
+            Console.Write("\nWhich boat do you want to edit?");
+            try
+            {
+                int choice = int.Parse(Console.ReadLine());
+         
+                foreach(Boat boat in m.Boats)
+                {
+                    if (m.Boats.IndexOf(boat) == choice)
+                    {
+                        if(editOrDelete)
+                        {
+                            editSelectedBoat(boat);
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("You have successfully edited the boat!");
+                            Console.ResetColor();
+                            Thread.Sleep(2000);
+                            break;
+                        }
+                        else
+                        {
+                            deleteSelectedBoat(m.Boats, boat);
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("You have successfully removed the boat from the Member!");
+                            Console.ResetColor();
+                            Thread.Sleep(2000);
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Enter a valid  number! Press Enter to go back.");
+                Console.ReadLine();
+            }
+            
+        }
+
+        public void editSelectedBoat(Boat b)
+        {
+            string editedBoatType = credentialBoatType();
+            float edtiedBoatLength = credentialBoatLength(editedBoatType);
+
+            _mc.editBoat(editedBoatType, edtiedBoatLength, b);
+        }
+
+        public void deleteSelectedBoat(List<Boat> boats,Boat b)
+        {
+            _mc.deleteBoat(boats,b);
+        }
+
+        public string credentialBoatType()
+        {
                 Console.Clear();
                 Console.WriteLine("Select Which type:");
                 Console.WriteLine("1. Sailboat");
@@ -292,21 +392,31 @@ namespace Workshop_2.View
                     v_boatType = "Other";
                 }
 
-
-                Console.Clear();
-                Console.WriteLine("You've selected the type: {0}", v_boatType);
-                Console.Write("Enter the length of the boat (metric): ");
-                float v_boatLength = float.Parse(Console.ReadLine());
-
-             _mc.addBoat(v_boatType, v_boatLength, m);
-            }
-            //TODO: SAVE MEMBER WITH BOAT TO FILE. GGWP, hard actually.
+                return v_boatType;            
         }
 
+        public float credentialBoatLength(string v_boatType)
+        {
+            Console.Clear();
+            Console.WriteLine("You've selected the type: {0}", v_boatType);
+            Console.Write("Enter the length of the boat (metric): ");
+            float v_boatLength = float.Parse(Console.ReadLine());
+
+            return v_boatLength;
+        }
+
+
+
+        /*
+         * PrintComapactList() - Prints: Name, UID and the amount of boats on each member.
+         * PrintVerboseList()  - Prints: Name, SSN, UID and details on each boat for each member.
+         * minimalMemberList() - Prints: Name
+         */
         public void printCompactList()
         {
-            List<Member> members = _mc.wantsToSeeCompactList();
+            List<Member> members = _mc.wantsToSeeList();
             Console.Clear();
+            Console.WriteLine("[COMPACT LIST]\n");
             Console.WriteLine(String.Format("{0,-21} {1,-6} {2}", "NAME", "UID","BOATS"));
             Console.WriteLine("------------------------------------");
             foreach(Member m in members)
@@ -319,15 +429,15 @@ namespace Workshop_2.View
 
         public void printVerboseList()
         {
-            List<Member> members = _mc.wantsToSeeCompactList();
+            List<Member> members = _mc.wantsToSeeList();
             Console.Clear();
-            
+            Console.WriteLine("[VERBOSE LIST]\n");
             foreach (Member m in members)
             {
                 
-                Console.WriteLine(String.Format("{0,-20} {1,-13} {2,-8} ", "NAME", "SSN", "UID"));
+                Console.WriteLine(String.Format("{0,-30} {1,-14} {2} ", "NAME", "SSN", "UID"));
                 
-                Console.WriteLine(String.Format("{0,-19} {1,-10}  {2,-4}", m.Name, m.SSN, m.UniqueID));
+                Console.WriteLine(String.Format("{0,-30} {1,-13}  {2,-4}", m.Name, m.SSN, m.UniqueID));
                 
                 Console.WriteLine("\nBOATS");
                 
@@ -344,7 +454,7 @@ namespace Workshop_2.View
 
         public void minimalMemberList()
         {
-            List<Member> members = _mc.wantsToSeeCompactList();
+            List<Member> members = _mc.wantsToSeeList();
             int pos = 0;
             Console.Clear();
             Console.WriteLine("NAME");

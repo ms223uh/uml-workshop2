@@ -14,7 +14,7 @@ namespace Workshop_2.Model
         private string _SSN;
         private int _uniqueID;
         private List<Boat> _boats = new List<Boat>();
-       
+        
 
         public Member(string name, string ssn, int uniqueID)
         {
@@ -59,13 +59,18 @@ namespace Workshop_2.Model
 
             set
             {
+                
+
                 if (UniqueID == 0)
                 {
+                    
                     Random rnd = new Random();
                     _uniqueID = rnd.Next(1, 10000);
-
                 }
-
+                else
+                {
+                    _uniqueID = value;
+                }
             }
         }
 

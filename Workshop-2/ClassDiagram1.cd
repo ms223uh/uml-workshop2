@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Workshop_2.Controller.MasterController" Collapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <AssociationLine Name="m_saveToFile" Type="Workshop_2.Model.MemberDAL" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.25" Y="2.5" />
+        <Point X="3.25" Y="1.781" />
+        <Point X="3.25" Y="1.781" />
+        <Point X="3.25" Y="1.062" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="m_readFromFile" Type="Workshop_2.Model.MemberDAL" FixedToPoint="true">
+      <Path>
+        <Point X="4.312" Y="2.5" />
+        <Point X="4.312" Y="1.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.432" Y="0.039" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="v_output" Type="Workshop_2.View.MenuView" FixedFromPoint="true">
+      <Path>
+        <Point X="4.188" Y="3.062" />
+        <Point X="4.188" Y="4.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.88" Y="0.07" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>GAAAABAAAAAAAQAAIAgAAAAAAACIAIIAAAAAAAKAAAA=</HashCode>
+      <FileName>Controller\MasterController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="m_saveToFile" />
+      <Property Name="m_readFromFile" />
+      <Property Name="Member" />
+      <Property Name="Boat" />
+      <Property Name="v_output" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Workshop_2.Model.Boat" Collapsed="true">
+    <Position X="6.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAEAIAAAAAEAAA=</HashCode>
+      <FileName>Model\Boat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Workshop_2.Model.Member" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAIAAAAAAAAAAAAAQAAAQAAQQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Member.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Workshop_2.Model.MemberDAL" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAgAAAAAAQABAAAAAAAAAA=</HashCode>
+      <FileName>Model\MemberDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Workshop_2.View.MenuView" Collapsed="true">
+    <Position X="3" Y="4.25" Width="1.5" />
+    <AssociationLine Name="c_input" Type="Workshop_2.Controller.MasterController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.25" Y="4.25" />
+        <Point X="3.25" Y="3.656" />
+        <Point X="3.25" Y="3.656" />
+        <Point X="3.25" Y="3.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.089" Y="0.07" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAQACIBgAAAQAAAAAAAAgAEACAACgAAwAAABCIBIA=</HashCode>
+      <FileName>View\MenuView.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="c_input" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
