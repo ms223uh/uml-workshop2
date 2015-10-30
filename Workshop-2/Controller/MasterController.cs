@@ -11,13 +11,18 @@ namespace Workshop_2.Controller
     {
 
         MemberDAL _memberDAL;
-       
+        LoginModel _loginModel;
 
         public MasterController()
         {
              _memberDAL = new Model.MemberDAL();
+             _loginModel = new Model.LoginModel();
         }
 
+        public bool userWantsToLogin(string username,string password)
+        {
+            return _loginModel.checkLoginCredentials(username, password);
+        }
 
         /*Createmember()
          *Creates new member object -> saves to .bin-file

@@ -8,7 +8,7 @@ namespace Workshop_2.Model
 {
 
     [Serializable]
-    class Boat
+    class Boat 
     {
         private string _boatType;
         private float _boatLength;
@@ -47,26 +47,5 @@ namespace Workshop_2.Model
             }
         }
 
-        internal Member Member
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-
-        internal Member m_addToList
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
     }
 }

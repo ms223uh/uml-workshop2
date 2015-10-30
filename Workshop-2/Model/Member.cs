@@ -8,7 +8,7 @@ namespace Workshop_2.Model
 {
 
     [Serializable]
-    class Member
+    class Member /*: ISearchInterface . Didn't get interface to work...*/
     {
         private string _name;
         private string _SSN;

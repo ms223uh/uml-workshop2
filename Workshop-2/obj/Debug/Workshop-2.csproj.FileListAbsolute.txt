@@ -4,3 +4,9 @@ C:\Users\Filip\Desktop\Projekt\OOAD\uml-workshop2\Workshop-2\bin\Debug\Workshop-
 C:\Users\Filip\Desktop\Projekt\OOAD\uml-workshop2\Workshop-2\obj\Debug\Workshop-2.exe
 C:\Users\Filip\Desktop\Projekt\OOAD\uml-workshop2\Workshop-2\obj\Debug\Workshop-2.pdb
 C:\Users\Filip\Desktop\Projekt\OOAD\uml-workshop2\Workshop-2\obj\Debug\Workshop-2.csprojResolveAssemblyReference.cache
+C:\Users\Filip\Desktop\Projekt\OOAD\OOAD-WS2-Higher-Grade\uml-workshop2\Workshop-2\bin\Debug\Workshop-2.exe.config
+C:\Users\Filip\Desktop\Projekt\OOAD\OOAD-WS2-Higher-Grade\uml-workshop2\Workshop-2\obj\Debug\Workshop-2.exe
+C:\Users\Filip\Desktop\Projekt\OOAD\OOAD-WS2-Higher-Grade\uml-workshop2\Workshop-2\obj\Debug\Workshop-2.pdb
+C:\Users\Filip\Desktop\Projekt\OOAD\OOAD-WS2-Higher-Grade\uml-workshop2\Workshop-2\bin\Debug\Workshop-2.exe
+C:\Users\Filip\Desktop\Projekt\OOAD\OOAD-WS2-Higher-Grade\uml-workshop2\Workshop-2\bin\Debug\Workshop-2.pdb
+C:\Users\Filip\Desktop\Projekt\OOAD\OOAD-WS2-Higher-Grade\uml-workshop2\Workshop-2\obj\Debug\Workshop-2.csprojResolveAssemblyReference.cache

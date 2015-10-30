@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Workshop_2.View
     class MenuView
     {
         MasterController _mc;
-
+        private bool isUserLoggedIn = false;
         public MenuView(MasterController mc)
         {
             _mc = mc;
@@ -20,81 +21,215 @@ namespace Workshop_2.View
   
         public void menu()
         {
-            Console.Clear();
+            
             while(true)
             {
-                
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("WELCOME TO HAPPY PIRATE'S MEMBER REGISTRY!\n");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Select an option...");
-
-                Console.WriteLine("[---------------------------------]");
-                Console.WriteLine("  1. Create a Member");
-                Console.WriteLine("  2. Select a Member");
-                Console.WriteLine("  3. Read Compact List of Members");
-                Console.WriteLine("  4. Read Verbose List of Members");
-                Console.WriteLine("\n  Q. Quit");
-                Console.WriteLine("[---------------------------------]");
-
-
-                char choice = Console.ReadKey().KeyChar;
-
-                switch (choice)
+                char choice; 
+                if (!isUserLoggedIn)
                 {
-                    case '1':
-                        Console.WriteLine("You Selected 'Create a Member'");
-                        newMember();
-                        Console.WriteLine("Member Added!\nPress any key to continue.");
-                        Console.ReadLine();
-                        break;
+                    Console.WriteLine("[---------------------------------]");
+                    Console.WriteLine("  1. Login");
+                    Console.WriteLine("  2. Read Compact List of Members");
+                    Console.WriteLine("  3. Read Verbose List of Members");
+                    Console.WriteLine("  4. Search");
+                    Console.WriteLine("\n  Q. Quit");
+                    Console.WriteLine("[---------------------------------]");
 
-                    case '2':
-                        Console.WriteLine("You Selected 'Select a Member'");
-                        selectMember();
-                        break;
 
-                    case '3':
-                        Console.WriteLine("Compact List of Members'");
-                        printCompactList();
-                        break;
+                    choice = Console.ReadKey().KeyChar; 
 
-                    case '4':
-                        Console.WriteLine("Compact List of Members'");
-                        printVerboseList();
-                        break;
+                    switch (choice)
+                    {
 
-                    case 'q':
-                        Console.Clear();
-                        Console.WriteLine("Have a nice day!");
-                        Environment.Exit(0);
-                        break;
+                        case '1':
+                            loginInput();
+                            break;
+                        case '2':                          
+                            printCompactList();
+                            break;
 
-                    default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("You need to enter a valid number! Press Enter to try again.");
-                        Console.ReadLine();
-                        Console.ForegroundColor = ConsoleColor.White;
-                        break;
+                        case '3':                         
+                            printVerboseList();
+                            break;
+
+                        case '4':
+                            search();
+                            break;
+
+                        case 'q':
+                            Console.Clear();
+                            Console.WriteLine("Have a nice day!");
+                            Environment.Exit(0);
+                            break;
+
+                        default:
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("You need to enter a valid number! Press Enter to try again.");
+                            Console.ReadLine();
+                            Console.ForegroundColor = ConsoleColor.White;
+                            break;
+                    }
+                    
                 }
-                Console.Clear();
+                else
+                {
+                    
+
+
+                    Console.WriteLine("  1. Create a Member");
+                    Console.WriteLine("  2. Select a Member");
+                    Console.WriteLine("  3. Logout\n");
+                    Console.WriteLine("  q. Quit");
+                    choice = Console.ReadKey().KeyChar;
+
+                    switch (choice)
+                    {
+                        case '1':
+                            Console.WriteLine("You Selected 'Create a Member'");
+                            newMember();
+                            Console.WriteLine("Member Added!\nPress any key to continue.");
+                            Console.ReadLine();
+                            break;
+
+                        case '2':
+                            Console.WriteLine("You Selected 'Select a Member'");
+                            selectMember();
+                            break;
+
+                        case '3':
+                            logout();
+                            break;
+                        case 'q':
+                            Console.Clear();
+                            Console.WriteLine("Have a nice day!");
+                            Environment.Exit(0);
+                            break;
+
+                    }
+                }
             }
         }
-
+            
 
         /*
          *  Member Handling.
          */
+
+
+        public void loginInput()
+        {
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("LOGIN");
+                Console.Write("Enter Username: ");
+                string username = Console.ReadLine();
+
+
+                Console.Write("Enter Password: ");
+                string password = Console.ReadLine();
+
+                try
+                {
+                     isUserLoggedIn = _mc.userWantsToLogin(username, password);
+                     
+                    if(isUserLoggedIn)
+                    {
+                        break;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Wrong username or password!");
+                    Thread.Sleep(2000);
+                }
+            }
+        }
+        public void logout()
+        {
+            isUserLoggedIn = false;
+            
+        }
+
+        public void search()
+        {
+            Console.Clear();
+
+            Console.WriteLine("[SEARCH]");
+
+            Console.WriteLine("Do you want to search for: \n1.Members \n2.Boat types?\n");
+            
+            char searchChoice = Console.ReadKey().KeyChar;
+            string choice = "";
+            switch (searchChoice)
+            {
+                case '1':
+                    choice = "Member";                   
+                    break;
+
+                case '2':
+                    choice = "Boat";
+                    break;
+            }
+            Console.Clear();
+            Console.Write("Search: ");
+
+            string searchfield = Console.ReadLine().First().ToString().ToUpper();
+            
+
+
+            List<Member> members = _mc.wantsToSeeList();
+            if(choice == "Member")
+            {
+              
+                foreach (Member member in members)
+                {
+
+                    if (member.Name.StartsWith(searchfield))
+                    {
+                        Console.WriteLine(member.Name + "\n----------------------------------------\n");
+                        foreach (Boat boat in member.Boats)
+                        {
+                            Console.WriteLine("Type of boat: " + boat.BoatType);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                
+                foreach (Member member in members)
+                {
+                    foreach (Boat boat in member.Boats)
+                    {
+                        if (boat.BoatType.StartsWith(searchfield))
+                        {
+                            Console.WriteLine(member.Name + " have " + boat.BoatType);
+                        }
+                    }
+                }
+            }
+
+
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
+            
+        }
+
+
         public void newMember()
         {
             Console.Clear();
             Console.Write("[CREATE A MEMBER]");
             string v_fullName = credentialsName();
             string v_SSN = credentialsSSN();
-            _mc.createMember(v_fullName, v_SSN, 0);
-
-
-           
+            _mc.createMember(v_fullName, v_SSN, 0);          
         }
 
         public void editMember(Member m)
